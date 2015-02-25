@@ -78,6 +78,7 @@ d3.json("js/como_employment.json", function(error, data) {
   //The translate property is what we use to pass x,y positions to "g" elements
   //So the x axis will appear 0 pixels from the left of the chart edge...
   //...and 500 (value of 'height') pixels from the top
+  svg.append("g")  
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis);
