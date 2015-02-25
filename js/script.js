@@ -116,6 +116,7 @@ d3.json("js/como_employment.json", function(error, data) {
   	.enter()
     //For each data point, append a 'circle' element
   	.append("circle")
+    .attr("class", "dot")
     //Circles have x,y positions expressed as cx and cy. 'c' stands for center.
   	.attr("cx", function(d) {
   		return x(d.date);
@@ -138,8 +139,12 @@ d3.json("js/como_employment.json", function(error, data) {
       // .tt is where we put our date and unemployment data to be displayed
       $(".tt").html(
   			"<div class='date'>"+dispDate+"</div>"+
-  			"<div class='val'>"+d.unemployment_rate+"</div>"
+  			"<div class='val'>"+d.unemployment_rate+"%</div>"
   		);
+
+      //Adding .active class to this circle so it turns red.
+      //The fill color for .dot.active is set in style.css
+      d3.select(this).classed("active", true);
 
       //In the css, .tt has a 'display' property set to 'hidden'. This keeps it from showing up on page load.
       //When we roll over it, we use the show() method to see it.
@@ -147,7 +152,11 @@ d3.json("js/como_employment.json", function(error, data) {
   	})
     //On 'mouseout', we hide the tooltip again.
   	.on("mouseout", function(d) {
-  		$(".tt").hide();
+
+      //Remoing .active class to this circle so it turns back to blue.
+      d3.select(this).classed("active", false);
+  		
+      $(".tt").hide();
   	})
     //And on 'mousemove', we calculate the position where we want the tooltip to show up.
     //The position is dependent on the position of the mouse.
@@ -159,10 +168,10 @@ d3.json("js/como_employment.json", function(error, data) {
       //Here we do some math to get the tooltip to show up where we want it...
       //...in relation to the mouse
       //we add margin.left + 15 to account for the chart 'g' margin and the padding of the .chart div.
-  		var left = pos[0] + margin.left + 15 - $(".tt").width() - 10;
+  		var left = pos[0] + margin.left + 15 - ($(".tt").outerWidth()/2);
 
       //Here we add the top margin and subtract the height of the tooltip so it displays above our mouse
-  		var top = pos[1] + margin.top - $(".tt").height() - 10;
+  		var top = pos[1] + margin.top - $(".tt").height() - 30;
 
       //With our two positions defined, we now apply them to our tooltip with the jQuery css method.
   		$(".tt").css({

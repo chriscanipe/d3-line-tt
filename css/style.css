@@ -8,9 +8,10 @@
 .tt {
 	background-color: white;
 	font-size: 13px;
-	border: 1px solid black;
 	position: absolute;
 	display: none;
+	padding: 8px;
+	box-shadow: 2px 2px 6px #666;
 
 }
 
@@ -42,3 +43,14 @@
   stroke: steelblue;
   stroke-width: 1.5px;
 }
+
+.dot {
+	fill: steelblue;
+}
+
+.dot.active {
+	fill : red;
+}
+
+
+
